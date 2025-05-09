@@ -1,0 +1,45 @@
+{% extends 'vitrine/base.html' %}
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-4 text-info">Liste des présences/absences</h3>
+
+    <form method="get" class="mb-3">
+        <label>Sélectionner une date :</label>
+        <input type="date" name="date" value="{{ selected_date }}" class="form-control w-auto d-inline-block">
+        <button type="submit" class="btn btn-primary">Voir</button>
+    </form>
+
+    {% if presences %}
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Présent ?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in presences %}
+                <tr>
+                    <td>{{ p.membre.nom }}</td>
+                    <td>{{ p.membre.prenom }}</td>
+                    <td>
+                        {% if p.present %}
+                            ✅ Présent
+                        {% else %}
+                            ❌ Absent
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif selected_date %}
+        <div class="alert alert-warning">Aucune donnée de présence pour cette date.</div>
+    {% endif %}
+<a href="{% url 'dashboard_moniteur' %}" class="btn btn-outline-secondary mt-4">
+    ⬅️ Retour au tableau de bord
+</a>
+
+</div>
+{% endblock %}

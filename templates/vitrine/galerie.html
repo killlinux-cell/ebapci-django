@@ -1,0 +1,17 @@
+{% extends 'vitrine/base.html' %}
+{% block title %}Galerie – Église{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Galerie Photos</h2>
+<div class="row">
+    {% for galerie in galeries %}
+  <div class="galerie">
+    <img src="{{ galerie.couverture.url }}" alt="{{ galerie.titre }}">
+    <h3>{{ galerie.titre }}</h3>
+    <p class="text-muted">{{ galerie.date_ajout|date:"d F Y" }}</p>
+    <a href="{% url 'detail_galerie' galerie.id %}">Voir plus</a>
+  </div>
+{% endfor %}
+
+</div>
+{% endblock %}

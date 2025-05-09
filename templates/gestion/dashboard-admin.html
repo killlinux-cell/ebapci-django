@@ -1,0 +1,89 @@
+{% extends 'vitrine/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2>Créer un nouveau moniteur</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="card p-4 shadow-sm">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    {{ create_moniteur_form.username.label_tag }}
+                    {{ create_moniteur_form.username|add_class:"form-control" }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    {{ create_moniteur_form.email.label_tag }}
+                    {{ create_moniteur_form.email|add_class:"form-control" }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    {{ create_moniteur_form.password.label_tag }}
+                    {{ create_moniteur_form.password|add_class:"form-control" }}
+                </div>
+            </div>
+            <button type="submit" name="create_moniteur" class="btn btn-primary">Créer</button>
+        </div>
+    </form>
+
+    <h2>Assigner un moniteur à une classe</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="card p-4 shadow-sm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ assign_moniteur_form.moniteur.label_tag }}
+                    {{ assign_moniteur_form.moniteur|add_class:"form-select" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ assign_moniteur_form.classe.label_tag }}
+                    {{ assign_moniteur_form.classe|add_class:"form-select" }}
+                </div>
+            </div>
+            <button type="submit" name="assign_moniteur" class="btn btn-success">Assigner</button>
+        </div>
+    </form>
+
+    <h2 class="mb-4">Liste des classes</h2>
+
+    <div class="accordion" id="accordionClasses">
+        {% for classe in classes %}
+        <div class="accordion-item shadow-sm mb-2">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                    {{ classe.nom }} — Moniteur : {{ classe.moniteur|default:"Aucun" }}
+                </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionClasses">
+                <div class="accordion-body">
+                    <p><strong>Description :</strong> {{ classe.description }}</p>
+
+                    {% if classe.moniteur %}
+                    <form method="post" class="mb-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="classe_id" value="{{ classe.id }}">
+                        <button type="submit" name="remove_moniteur" class="btn btn-danger btn-sm">Retirer le moniteur</button>
+                    </form>
+                    {% endif %}
+
+                    <h5>Membres :</h5>
+                    <ul class="list-group">
+                        {% for membre in classe.membre_set.all %}
+                            <li class="list-group-item">
+                                {{ membre.prenom }} {{ membre.nom }} — 📞 {{ membre.telephone }}
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Aucun membre</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+``

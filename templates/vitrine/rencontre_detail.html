@@ -1,0 +1,40 @@
+{% extends 'vitrine/base.html' %}
+{% load static %}
+{% block title %}Rencontre Quotidiennes - Église{% endblock %}
+
+{% block content %}
+
+ <div class="container mt-5">
+    <h1 class="section-title">{{ rencontre.theme }}</h1>
+    <div class="detail-card">
+        <div class="row">
+            <div class="col-md-6 left-column">
+                <p><strong>Date :</strong> {{ rencontre.date|date:"d/m/Y" }}</p>
+            </div>
+            <div class="col-md-6 right-column">
+                <p><strong>Texte Biblique :</strong> {{ rencontre.text_biblique|linebreaksbr }}</p>
+            </div>
+        </div>
+        
+        <div class="message-section">
+            <p><strong>Message :</strong> {{ rencontre.message|linebreaksbr }}</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 left-column">
+                <p><strong>Aperçu :</strong> {{ rencontre.apercu|linebreaksbr }}</p>
+                <p><strong>Application :</strong> {{ rencontre.application|linebreaksbr }}</p>
+            </div>
+            <div class="col-md-6 right-column">
+                <p><strong>Prières :</strong> {{ rencontre.prieres|linebreaksbr }}</p>
+                <p><strong>Lecture Biblique Annuelle :</strong> {{ rencontre.lecture_biblique_annuelle|linebreaksbr }}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'liste_rencontres' %}" class="btn btn-success mt-3">Retour aux Rencontres</a>
+    </div>
+</div>
+
+
+
+{% endblock %}

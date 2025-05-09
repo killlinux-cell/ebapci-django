@@ -1,0 +1,47 @@
+{% extends "vitrine/base.html" %}
+{% load static %}
+{% block title %}Programmes - Église{% endblock %}
+
+{% block content %}
+
+    <!-- Programmes de la semaine -->
+<main class="py-5">
+    <div class="container">
+        <h2 class="fw-bold text-uppercase mb-5 text-center">Programmes Hebdomadaires</h2>
+        <div class="row">
+            {% for programme in programmes %}
+            <div class="col-md-4 mb-4">
+                <div class="card program-card">
+                    <img src="{{ programme.image.url }}" alt="{{ programme.nom }}" class="program-img">
+                    <div class="program-content">
+                        <h4>{{ programme.nom }}</h4>
+                        <p class="program-date">{{ programme.date }}</p>
+                        <p>{{ programme.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Aucun programme pour le moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+
+<!-- Programmes de la semaine -->
+
+<!-- section live  -->
+
+    <div class="container">
+        <div class="live-section">
+            <h2>Regardez notre Live sur Facebook</h2>
+            <p>Cliquez sur le bouton ci-dessous pour rejoindre notre live en direct sur Facebook.</p>
+            <a href="https://web.facebook.com/EBAPCI/live" target="_blank" class="btn">Regarder le Live</a>
+        </div>
+    </div>
+
+
+<!-- section live  -->
+
+    
+{% endblock %}

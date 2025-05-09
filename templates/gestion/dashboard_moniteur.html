@@ -1,0 +1,75 @@
+{% extends 'vitrine/base.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold">Bienvenue, {{ request.user.username }} (Moniteur)</h2>
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger">🚪 Déconnexion</a>
+</div>
+
+    <hr>
+
+    {% if classes_data %}
+        {% for item in classes_data %}
+            <div class="card mb-5 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Classe : {{ item.classe.nom }}</h4>
+                </div>
+                <div class="card-body">
+                    <p>{{ item.classe.description }}</p>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-semibold">Membres de la classe</h5>
+                        <a href="{% url 'ajouter_membre' %}" class="btn btn-success">➕ Ajouter un membre</a>
+                    </div>
+
+                    {% if item.membres %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Âge</th>
+                                        <th>Téléphone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for membre in item.membres %}
+                                    <tr>
+                                        <td>{{ membre.nom }}</td>
+                                        <td>{{ membre.prenom }}</td>
+                                        <td>{{ membre.age }}</td>
+                                        <td>{{ membre.telephone }}</td>
+                                        <td>
+                                            <form method="post" action="{% url 'supprimer_membre' membre.id %}" onsubmit="return confirm('Confirmer la suppression ?')">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                            </form>
+                                           
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>Aucun membre dans cette classe pour le moment.</p>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <h6 class="fw-semibold">Gestion des présences</h6>
+                        <a href="{% url 'pointer_presence' %}" class="btn btn-outline-success mt-2">📅 Pointer les présences aujourd’hui</a>
+                        <a href="{% url 'liste_absences' %}" class="btn btn-outline-danger mt-2">📋 Voir les absences</a>
+                        <a href="{% url 'recapitulatif_presences' %}" class="btn btn-outline-primary mt-2">📋 Récap</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">Aucune classe assignée à votre compte pour le moment.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'vitrine/base.html' %}
+{% load static %}
+{% block title %}Rencontre Quotidiennes - Église{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="section-title text-uppercase mb-5">Nos Rencontres Quotidiennes</h2>
+    <div class="row">
+        {% for rencontre in rencontres %}
+            <div class="col-md-4">
+                <div class="card card-rencontre shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ rencontre.theme }}</h5>
+                        <p class="text-muted"><small>Date : {{ rencontre.date|date:"d/m/Y" }}</small></p>
+                        <p><strong>Texte Biblique :</strong> {{ rencontre.text_biblique|linebreaksbr }}</p>
+                        <p><strong>Message :</strong> {{ rencontre.message|truncatechars:100 }}</p>
+                        <a href="{% url 'detail_rencontre' rencontre.id %}" class="btn btn-sm btn-danger px-4">Lire</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

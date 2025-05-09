@@ -1,0 +1,39 @@
+{% extends 'vitrine/base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-success">📊 Récapitulatif des présences</h2>
+
+    {% if data %}
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Présent</th>
+                    <th>Absent</th>
+                    <th>Taux de présence</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.membre.nom }}</td>
+                    <td>{{ item.membre.prenom }}</td>
+                    <td>{{ item.jours_presents }}</td>
+                    <td>{{ item.jours_absents }}</td>
+                    <td>{{ item.taux_presence }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">Aucune donnée de présence disponible.</div>
+    {% endif %}
+<a href="{% url 'dashboard_moniteur' %}" class="btn btn-outline-secondary mt-4">
+    ⬅️ Retour au tableau de bord
+</a>
+
+</div>
+{% endblock %}

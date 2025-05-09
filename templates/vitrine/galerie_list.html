@@ -1,0 +1,25 @@
+{% extends 'vitrine/base.html' %}
+{% load static %}
+{% block title %}Galerie - Église{% endblock %}
+
+{% block content %}
+<main class="py-5">
+    <div class="container">
+        <h2 class="fw-bold text-uppercase mb-5 text-center">Galerie</h2>
+        <div class="row">
+            {% for galerie in galeries %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ galerie.couverture.url }}" class="card-img-top" alt="{{ galerie.titre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ galerie.titre }}</h5>
+                        <p class="text-muted">{{ galerie.date_ajout|date:"d F Y" }}</p>
+                        <a href="{% url 'detail_galerie' galerie.id %}" class="btn btn-outline-success btn-sm">Voir les images</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

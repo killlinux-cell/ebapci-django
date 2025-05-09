@@ -1,0 +1,29 @@
+{% extends "vitrine/base.html" %}
+{% block title %}Contact – Église{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Nous contacter</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" class="mb-5">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.nom.label_tag }} {{ form.nom }}
+    </div>
+    <div class="mb-3">
+        {{ form.email.label_tag }} {{ form.email }}
+    </div>
+    <div class="mb-3">
+        {{ form.sujet.label_tag }} {{ form.sujet }}
+    </div>
+    <div class="mb-3">
+        {{ form.message.label_tag }} {{ form.message }}
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+{% endblock %}

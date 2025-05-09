@@ -1,0 +1,60 @@
+{% extends 'vitrine/base.html' %}
+{% load static %}
+{% block title %}Offrandes - Église{% endblock %}
+
+{% block content %}
+
+
+<section class="section text-center py-5">
+    <h2 class="fw-bold text-uppercase">Dîmes et offrandes</h2>
+    <p>Vous pouvez également apporter vos dîmes et offrandes</p>
+    <br>
+    <div class="container">
+        <div class="row">
+            <!-- Orange Money -->
+            <div class="col-md-4">
+                <div class="bg-danger py-5 rounded-4 text-white">
+                    <h4>Par Orange Money</h4>
+                    <p class="mb-0">au +225 00 00 00 00</p>
+                </div>
+            </div>
+
+            <!-- MTN Mobile Money -->
+            <div class="col-md-4">
+                <div class="bg-warning py-5 rounded-4 text-dark">
+                    <h4>Par MTN Mobile Money</h4>
+                    <p class="mb-0">au +225 00 00 00 00</p>
+                </div>
+            </div>
+
+            <!-- Moov Money -->
+            <div class="col-md-4">
+                <div class="bg-success py-5 rounded-4 text-white">
+                    <h5>Par Moov Money</h5>
+                    <p class="mb-0">au +225 00 00 00 00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <!-- Logos des moyens de paiement -->
+                <div class="d-flex justify-content-center">
+                    <img src="{% static 'images/visa.png' %}" class="object-fit-contain" alt="Visa">
+                    <img src="{% static 'images/master.png' %}" class="object-fit-contain" alt="MasterCard">
+                    <img src="{% static 'images/paypal.png' %}" class="object-fit-contain" alt="PayPal">
+                    <img src="{% static 'images/ecobank.jpg' %}" class="object-fit-contain" alt="Ecobank">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <button class="btn btn-danger">Je fais une offrande spéciale</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

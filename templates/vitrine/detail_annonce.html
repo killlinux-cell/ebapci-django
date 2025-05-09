@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="fw-bold">{{ annonce.title }}</h2>
+    <p class="text-muted">
+        Publié le : {{ annonce.date_published|date:"d F Y" }} |
+        Catégorie : {{ annonce.get_category_display }}
+    </p>
+
+    {% if annonce.content %}
+    <p>{{ annonce.content }}</p>
+    {% endif %}
+
+    {% if annonce.fichier %}
+    <div class="mt-4">
+        <h5>Fichier joint :</h5>
+        {% if extension == "pdf" %}
+            <embed src="{{ annonce.fichier.url }}" type="application/pdf" width="100%" height="600px">
+        {% elif extension == "pptx" %}
+            <a href="{{ annonce.fichier.url }}" target="_blank" class="btn btn-primary">Ouvrir le fichier PowerPoint</a>
+        {% else %}
+            <a href="{{ annonce.fichier.url }}" download class="btn btn-secondary">Télécharger le fichier</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p class="text-muted">Aucun fichier joint.</p>
+{% endif %}
+
+</div>
+{% endblock %}

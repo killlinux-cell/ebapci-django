@@ -1,0 +1,231 @@
+{% extends "vitrine/base.html" %}
+{% load static %}
+{% block title %}Accueil - Église{% endblock %}
+
+{% block content %}
+
+<!-- Carousel -->
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for slide in slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ slide.image.url }}" class="d-block w-100 carousel-image" alt="{{ slide.titre }}">
+            <div class="carousel-caption d-flex align-items-center justify-content-center">
+                <div>
+                    <h1 class="big-text text-white">{{ slide.titre }}</h1>
+                    <p class="mb-0 text-white">{{ slide.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Retour</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+    </button>
+</div>
+
+<!-- Annonces -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">ANNONCES ET COMMUNIQUÉS</h2>
+            <p class="text-muted">Restez informé des dernières nouvelles et communiqués de votre église</p>
+        </div>
+        <div class="row">
+            {% for annonce in annonces %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <small class="text-muted">
+                            <i class="bi bi-calendar-event"></i>
+                            Publié le : {{ annonce.date_published|date:"d F Y" }}
+                        </small>
+                        <h5 class="mt-2 fw-bold">{{ annonce.title }}</h5>
+                    </div>
+                    <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                        <a href="{% url 'detail_annonce' annonce.id %}" class="btn btn-danger btn-sm">Lire plus</a>
+                        {% if annonce.category == 'evenement' %}
+                        <span class="badge bg-warning text-dark">Événement</span>
+                        {% elif annonce.category == 'communique' %}
+                        <span class="badge bg-info text-dark">Communiqué</span>
+                        {% elif annonce.category == 'annonce' %}
+                        <span class="badge bg-secondary">Annonce</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">Aucune annonce disponible.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Mot de bienvenue  -->
+  <section class="welcome-section">
+        <div class="container">
+            <h2 class="fw-bold text-uppercase">Mot de Bienvenue</h2>
+            <p class="margin-x150">
+                Que la paix et la grâce de notre Seigneur Jésus-Christ soient avec vous. 
+                Nous sommes honorés de vous accueillir dans la grande famille EBAPCI. Que 
+                votre présence ici vous rapproche de Dieu et vous inspire à marcher dans 
+                la foi. Ensemble, nous formons une communauté unie par l'amour et la vérité 
+                de la Parole. Nous espérons que vous trouverez dans cette église un lieu de 
+                paix, de refuge et de croissance spirituelle.
+            </p>
+            <img src="{% static 'images/signature.png' %}" alt="Signature du Pasteur" class="signature-img">
+            <div class="pastor-signature">
+                Révérand William ADISA & le Conseil de l'Église
+            </div>
+            <img src="{% static 'images/img_pasteur.jpg' %}" alt="Photo du Pasteur" class="pastor-photo">
+        </div>
+    </section>
+<!-- Mot de bienvenue  -->
+    
+<!-- Section Histoire de l'Église -->
+<section class="history-section">
+        <div class="container">
+            <h2 class="fw-bold">Notre Histoire</h2>
+            <p class="text-center margin-x150">
+                Depuis sa fondation, l'Église EBAPCI a parcouru un long chemin pour devenir un lieu de culte et de communauté 
+                spirituelle pour ses fidèles. Découvrez les étapes clés de notre histoire, marquées par la foi, le service, et 
+                l'engagement envers notre Seigneur et Sauveur.
+            </p>
+
+            <!-- Timeline de l'histoire -->
+            <ul class="timeline">
+                <li class="timeline-item left">
+                    <h4>1950 - Fondation</h4>
+                    <p class="margin-r50">L'Église EBAPCI a été fondée par un petit groupe de croyants qui se sont réunis pour prier et adorer Dieu.</p>
+                </li>
+                <li class="timeline-item right">
+                    <h4>1975 - Construction de la première église</h4>
+                    <p class="margin-l50">Après plusieurs années de croissance, notre première église a été construite grâce à la générosité des membres.</p>
+                </li>
+                <li class="timeline-item left">
+                    <h4>2000 - Expansion des activités missionnaires</h4>
+                    <p class="margin-r50">Nous avons lancé des missions dans plusieurs régions de la Côte d'Ivoire, aidant à propager la parole de Dieu.</p>
+                </li>
+                <li class="timeline-item right">
+                    <h4>2015 - Nouveau bâtiment moderne</h4>
+                    <p class="margin-l50">Un nouveau bâtiment a été érigé pour accueillir un nombre croissant de membres, avec des installations modernes.</p>
+                </li>
+                <li class="timeline-item left">
+                    <h4>2023 - Aujourd'hui</h4>
+                    <p class="margin-r50">Nous continuons à grandir et à servir la communauté avec passion, en restant fidèles à notre mission de foi et de service.</p>
+                </li>
+            </ul>
+
+            <!-- Photo historique -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <img src="{% static 'images/eglise.jpg' %}" class="w-100" alt="Photo historique de l'Église">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="{% static 'images/eglise.jpg' %}" class="w-100" alt="Photo historique de l'Église">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="{% static 'images/eglise.jpg' %}" class="w-100" alt="Photo historique de l'Église">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Section Histoire de l'Église -->
+
+<!-- Section Départements de l'Église -->
+<section class="departments-section">
+        <div class="container">
+            <h2>Nos Départements</h2>
+            <div class="row">
+
+                <!-- Ministère de la Louange -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-music-note-beamed"></i> <!-- Icône musique -->
+                        </div>
+                        <h4>Ministère de la Louange</h4>
+                        <p>Ce département est responsable de la musique et des chants de louange durant les services religieux.</p>
+                    </div>
+                </div>
+
+                <!-- Département de la Jeunesse -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-people"></i> <!-- Icône groupe de personnes -->
+                        </div>
+                        <h4>Département de la Jeunesse</h4>
+                        <p>Le département de la jeunesse organise des activités et des événements pour encourager la croissance spirituelle des jeunes.</p>
+                    </div>
+                </div>
+
+                <!-- Ministère de l'Enseignement -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-book"></i> <!-- Icône livre -->
+                        </div>
+                        <h4>Ministère de l'Enseignement</h4>
+                        <p>Chargé de l'enseignement biblique, ce département aide les membres à approfondir leur foi à travers la parole de Dieu.</p>
+                    </div>
+                </div>
+
+                <!-- Ministère des Œuvres Sociales -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-heart"></i> <!-- Icône coeur -->
+                        </div>
+                        <h4>Ministère des Œuvres Sociales</h4>
+                        <p>Ce ministère s'occupe des activités caritatives et d'aide aux membres de la communauté en difficulté.</p>
+                    </div>
+                </div>
+
+                <!-- Ministère de l'Intercession -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-heart"></i> <!-- Icône prière -->
+                        </div>
+                        <h4>Ministère de l'Intercession</h4>
+                        <p>Les intercesseurs prient pour les membres, l'église, et les besoins spécifiques afin de fortifier la foi et la communauté.</p>
+                    </div>
+                </div>
+
+                <!-- Ministère de l'Évangélisation -->
+                <div class="col-md-4 mb-4">
+                    <div class="card department-card text-center p-4">
+                        <div class="department-icon mb-3">
+                            <i class="bi bi-broadcast"></i> <!-- Icône évangélisation -->
+                        </div>
+                        <h4>Ministère de l'Évangélisation</h4>
+                        <p>Ce département se charge de partager la Bonne Nouvelle et de propager l'évangile à travers des missions locales et internationales.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Section Départements de l'Église -->
+
+
+    <!-- Conteneur de la carte -->
+    <div id="map" style="height: 400px; margin-top: 50px;"></div>
+
+
+
+{% endblock %}
