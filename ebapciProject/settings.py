@@ -14,9 +14,9 @@ def now(request):
 SECRET_KEY = 'django-insecure-37#g5k*=ntsioimg$697ltpac!ytvo844g*)w1c3okb_z^g5fn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['ebapci.io']
+ALLOWED_HOSTS = []
 
 
 # Application definition
